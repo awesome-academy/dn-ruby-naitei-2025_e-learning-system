@@ -1,0 +1,15 @@
+<div class="container mt-4">
+  <h3>🎓 <%= @course.title %></h3>
+
+  <% if @course.thumbnail_url.present? %>
+    <img src="<%= @course.thumbnail_url %>" alt="Thumbnail" class="img-fluid mb-3" style="max-height: 200px;">
+  <% end %>
+
+  <p><strong>Category:</strong> <%= @course.category&.name || '—' %></p>
+  <p><strong>Creator:</strong> <%= @course.creator&.name || '—' %></p>
+  <p><strong>Description:</strong></p>
+  <p><%= @course.description %></p>
+
+  <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-warning' %>
+  <%= link_to 'Back', courses_path, class: 'btn btn-secondary' %>
+</div>

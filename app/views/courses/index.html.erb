@@ -1,0 +1,38 @@
+<div class="container mt-4">
+  <h2 class="mb-3">🎓 Courses</h2>
+
+  <%= link_to '➕ New Course', new_course_path, class: 'btn btn-primary mb-3' %>
+
+  <table class="table table-bordered table-hover">
+    <thead class="table-light">
+      <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Creator</th>
+        <th>Thumbnail</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td><%= course.title %></td>
+          <td><%= course.category&.name || '—' %></td>
+          <td><%= course.creator&.name || '—' %></td>
+          <td>
+            <% if course.thumbnail_url.present? %>
+              <img src="<%= course.thumbnail_url %>" alt="Thumbnail" style="height: 50px; width: auto;">
+            <% else %>
+              <span class="text-muted">No image</span>
+            <% end %>
+          </td>
+          <td>
+            <%= link_to 'View', course_path(course), class: 'btn btn-sm btn-info' %>
+            <%= link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning' %>
+            <%= link_to 'Delete', course, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
