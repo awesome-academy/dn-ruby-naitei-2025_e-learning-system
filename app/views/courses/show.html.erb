@@ -1,15 +1,16 @@
-<div class="container mt-4">
-  <h3>🎓 <%= @course.title %></h3>
+<div class="card mb-4 shadow-sm">
+  <img src="<%= @course.thumbnail_url.presence || 'https://via.placeholder.com/800x400' %>" class="card-img-top" alt="<%= @course.title %>">
 
-  <% if @course.thumbnail_url.present? %>
-    <img src="<%= @course.thumbnail_url %>" alt="Thumbnail" class="img-fluid mb-3" style="max-height: 200px;">
-  <% end %>
+  <div class="card-body">
+    <h3><%= @course.title %></h3>
+    <p class="text-muted"><%= @course.category&.name || "Chưa phân loại" %></p>
+    <p><%= @course.description %></p>
 
-  <p><strong>Category:</strong> <%= @course.category&.name || '—' %></p>
-  <p><strong>Creator:</strong> <%= @course.creator&.name || '—' %></p>
-  <p><strong>Description:</strong></p>
-  <p><%= @course.description %></p>
-
-  <%= link_to 'Edit', edit_course_path(@course), class: 'btn btn-warning' %>
-  <%= link_to 'Back', courses_path, class: 'btn btn-secondary' %>
+    <% if current_user.admin? %>
+      <%= link_to "Chỉnh sửa", edit_course_path(@course), class: "btn btn-warning" %>
+      <%= link_to "Xóa", course_path(@course), method: :delete, data: { confirm: "Xóa khóa học này?" }, class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "Quay lại danh sách", courses_path, class: "btn btn-outline-secondary" %>
+    <% end %>
+  </div>
 </div>

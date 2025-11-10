@@ -1,8 +1,10 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: %i(show edit update destroy)
+  # before_action :authenticate_user!
+  before_action :authorize_admin!, except: %i(index show)
 
   def index
-    @courses = Course.includes(:category, :creator)
+    @courses = Course.includes(:category).all
   end
 
   def show; end
@@ -13,8 +15,9 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
+    @course.created_by = current_user.id
     if @course.save
-      redirect_to @course, notice: "Course created successfully."
+      redirect_to @course, notice: "Course created successfully!"
     else
       render :new, status: :unprocessable_entity
     end
@@ -24,7 +27,7 @@ class CoursesController < ApplicationController
 
   def update
     if @course.update(course_params)
-      redirect_to @course, notice: "Course updated successfully."
+      redirect_to @course, notice: "Course updated successfully!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -32,7 +35,7 @@ class CoursesController < ApplicationController
 
   def destroy
     @course.destroy
-    redirect_to courses_path, notice: "Course deleted."
+    redirect_to courses_path, alert: "Course deleted!"
   end
 
   private
@@ -42,7 +45,14 @@ class CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:title, :description, :thumbnail_url,
-                                   :category_id, :created_by)
+    params.require(:course).permit(:title, :description, :category_id,
+                                   :thumbnail_url)
+  end
+
+  def authorize_admin!
+    return if current_user.admin?
+
+    redirect_to courses_path,
+                alert: "Access Denni!"
   end
 end

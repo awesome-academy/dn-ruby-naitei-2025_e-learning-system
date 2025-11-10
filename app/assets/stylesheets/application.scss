@@ -62,3 +62,27 @@ form {
     background-color: #e9ecef;
   }
 }
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+
+  img {
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .card-body {
+    h5 {
+      font-weight: 600;
+    }
+
+    p {
+      color: #555;
+    }
+
+    .btn {
+      margin-top: 5px;
+      margin-right: 5px;
+    }
+  }
+}

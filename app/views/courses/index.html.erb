@@ -1,38 +1,28 @@
-<div class="container mt-4">
-  <h2 class="mb-3">🎓 Courses</h2>
+<h2 class="mb-4">Danh sách khóa học</h2>
 
-  <%= link_to '➕ New Course', new_course_path, class: 'btn btn-primary mb-3' %>
+<div class="row">
+  <% @courses.each do |course| %>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <% if course.thumbnail_url.present? %>
+          <img src="<%= course.thumbnail_url %>" class="card-img-top" alt="<%= course.title %>">
+        <% else %>
+          <img src="https://via.placeholder.com/400x200?text=No+Image" class="card-img-top" alt="no image">
+        <% end %>
 
-  <table class="table table-bordered table-hover">
-    <thead class="table-light">
-      <tr>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Creator</th>
-        <th>Thumbnail</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @courses.each do |course| %>
-        <tr>
-          <td><%= course.title %></td>
-          <td><%= course.category&.name || '—' %></td>
-          <td><%= course.creator&.name || '—' %></td>
-          <td>
-            <% if course.thumbnail_url.present? %>
-              <img src="<%= course.thumbnail_url %>" alt="Thumbnail" style="height: 50px; width: auto;">
-            <% else %>
-              <span class="text-muted">No image</span>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to 'View', course_path(course), class: 'btn btn-sm btn-info' %>
-            <%= link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning' %>
-            <%= link_to 'Delete', course, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+        <div class="card-body">
+          <h5 class="card-title"><%= course.title %></h5>
+          <p class="card-text text-truncate"><%= course.description %></p>
+          <p><strong>Danh mục:</strong> <%= course.category&.name || "Chưa phân loại" %></p>
+
+          <%= link_to "Xem chi tiết", course_path(course), class: "btn btn-outline-primary btn-sm" %>
+
+          <% if current_user.admin? %>
+            <%= link_to "Sửa", edit_course_path(course), class: "btn btn-warning btn-sm" %>
+            <%= link_to "Xóa", course_path(course), method: :delete, data: { confirm: "Xóa khóa học này?" }, class: "btn btn-danger btn-sm" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
