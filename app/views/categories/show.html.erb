@@ -1,0 +1,8 @@
+<div class="container mt-4">
+  <h3>📁 <%= @category.name %></h3>
+  <p><strong>Description:</strong> <%= @category.description %></p>
+  <p><strong>Parent:</strong> <%= @category.parent&.name || '—' %></p>
+
+  <%= link_to 'Edit', edit_category_path(@category), class: 'btn btn-warning' %>
+  <%= link_to 'Back', categories_path, class: 'btn btn-secondary' %>
+</div>

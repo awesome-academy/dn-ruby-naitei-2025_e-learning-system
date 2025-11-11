@@ -1,0 +1,64 @@
+
+@import "bootstrap";
+
+// Custom styles
+body {
+  background-color: #f8f9fa;
+  font-family: 'Nunito', sans-serif;
+}
+
+.container {
+  margin-top: 2rem;
+}
+
+.table {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  th {
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+  }
+
+  td {
+    vertical-align: middle;
+  }
+}
+
+.btn {
+  margin-right: 0.25rem;
+}
+
+h2, h3 {
+  color: #343a40;
+  margin-bottom: 1rem;
+}
+form {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+
+  .form-label {
+    font-weight: 600;
+  }
+
+  .form-control, .form-select {
+    margin-bottom: 1rem;
+  }
+
+  .btn {
+    min-width: 100px;
+  }
+}
+.table {
+  th, td {
+    text-align: center;
+  }
+
+  tr:hover {
+    background-color: #e9ecef;
+  }
+}
