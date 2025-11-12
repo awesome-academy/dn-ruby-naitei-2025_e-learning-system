@@ -4,20 +4,21 @@ class User < ApplicationRecord
     instructor: "instructor",
     student: "student"
   }
-
+  has_one :profile, dependent: :destroy
   has_secure_password
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  def admin?
-    role == "admin"
-  end
+  has_many :enrollments, dependent: :destroy
+  has_many :enrolled_courses, through: :enrollments, source: :course
 
-  def instructor?
-    role == "instructor"
-  end
+  has_many :quiz_attempts, dependent: :destroy
+  has_many :progress_trackings, dependent: :destroy
 
-  def student?
-    role == "student"
-  end
+  has_many :created_courses, class_name: Course.name, foreign_key: :creator_id,
+dependent: :nullify
+  has_many :created_quizzes, class_name: Quiz.name, foreign_key: :creator_id,
+dependent: :nullify
+  has_many :created_questions, class_name: Question.name,
+foreign_key: :creator_id, dependent: :nullify
 end
