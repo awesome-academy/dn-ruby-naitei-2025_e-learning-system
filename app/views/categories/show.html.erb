@@ -1,8 +1,38 @@
 <div class="container mt-4">
-  <h3>📁 <%= @category.name %></h3>
-  <p><strong>Description:</strong> <%= @category.description %></p>
-  <p><strong>Parent:</strong> <%= @category.parent&.name || '—' %></p>
+  <div class="category-header mb-4">
+    <h2 class="display-5"><%= @category.name %></h2>
+    <p class="lead text-muted"><%= @category.description %></p>
+  </div>
 
-  <%= link_to 'Edit', edit_category_path(@category), class: 'btn btn-warning' %>
-  <%= link_to 'Back', categories_path, class: 'btn btn-secondary' %>
+  <hr>
+
+  <h3 class="mb-3"><%= t('categories.show.courses_in_category') %></h3>
+
+  <div class="row">
+    <% if @courses.empty? %>
+      <div class="col">
+        <p class="text-muted"><%= t('categories.show.no_courses') %></p>
+      </div>
+    <% end %>
+
+    <% @courses.each do |course| %>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+        <div class="card h-100 course-card shadow-sm">
+          <%= link_to course_path(course), class: "stretched-link text-decoration-none text-dark" do %>
+            <img src="<%= course.thumbnail_url.presence || 'https://via.placeholder.com/800x400' %>"
+                 class="card-img-top course-img"
+                 alt="<%= course.title %>">
+          <% end %>
+
+          <div class="card-body">
+            <h5 class="card-title"><%= course.title %></h5>
+            <p class="card-text text-muted"><%= course.category&.name || t('categories.show.uncategorized') %></p>
+            <p class="card-text"><%= truncate(course.description.to_s, length: 120) %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= link_to t('categories.show.back_to_categories'), categories_path, class: 'btn btn-outline-secondary mt-3' %>
 </div>

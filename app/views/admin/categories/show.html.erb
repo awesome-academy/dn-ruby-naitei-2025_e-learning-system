@@ -1,0 +1,9 @@
+<div class="container mt-4">
+  <h3>📁 <%= @category.name %> (<%= t('admin.categories.show.admin_view') %>)</h3>
+
+  <p><strong><%= t('admin.categories.show.description') %>:</strong> <%= @category.description %></p>
+  <p><strong><%= t('admin.categories.show.parent') %>:</strong> <%= @category.parent&.name || t('admin.categories.show.no_parent') %></p>
+
+  <%= link_to t('admin.categories.show.edit'), edit_admin_category_path(@category), class: 'btn btn-warning' %>
+  <%= link_to t('admin.categories.show.back_to_list'), admin_categories_path, class: 'btn btn-secondary' %>
+</div>

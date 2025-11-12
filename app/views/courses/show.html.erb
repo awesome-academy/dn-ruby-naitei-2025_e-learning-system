@@ -1,16 +1,53 @@
+<p style="color: green"><%= notice %></p>
+
 <div class="card mb-4 shadow-sm">
   <img src="<%= @course.thumbnail_url.presence || 'https://via.placeholder.com/800x400' %>" class="card-img-top" alt="<%= @course.title %>">
 
   <div class="card-body">
     <h3><%= @course.title %></h3>
-    <p class="text-muted"><%= @course.category&.name || "Chưa phân loại" %></p>
+    <p class="text-muted"><%= @course.category&.name || t('courses.show.uncategorized') %></p>
     <p><%= @course.description %></p>
 
-    <% if current_user.admin? %>
-      <%= link_to "Chỉnh sửa", edit_course_path(@course), class: "btn btn-warning" %>
-      <%= link_to "Xóa", course_path(@course), method: :delete, data: { confirm: "Xóa khóa học này?" }, class: "btn btn-danger" %>
-    <% else %>
-      <%= link_to "Quay lại danh sách", courses_path, class: "btn btn-outline-secondary" %>
-    <% end %>
+    <hr>
+
+    <%= link_to t('courses.show.back_to_list'), courses_path, class: "btn btn-outline-secondary" %>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <h4 class="mb-0"><%= t('courses.show.content_title') %></h4>
+  </div>
+
+  <div class="card-body">
+    <div class="accordion" id="courseContentAccordion">
+
+      <% if @course.course_modules.empty? %>
+        <p class="text-muted"><%= t('courses.show.no_content') %></p>
+      <% end %>
+
+      <% @course.course_modules.each_with_index do |module_item, index| %>
+        <div class="accordion-item">
+
+          <h2 class="accordion-header" id="heading-<%= module_item.id %>">
+            <button class="accordion-button <%= 'collapsed' if index > 0 %>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-<%= module_item.id %>" aria-expanded="<%= index == 0 ? 'true' : 'false' %>" aria-controls="collapse-<%= module_item.id %>">
+              <strong><%= module_item.title %></strong>
+            </button>
+          </h2>
+
+          <div id="collapse-<%= module_item.id %>" class="accordion-collapse collapse <%= 'show' if index == 0 %>" aria-labelledby="heading-<%= module_item.id %>" data-bs-parent="#courseContentAccordion">
+            <div class="accordion-body">
+              <ul class="list-group list-group-flush">
+                <% module_item.lessons.each do |lesson| %>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <%= link_to lesson.title, lesson_path(lesson) %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

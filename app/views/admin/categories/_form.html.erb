@@ -1,0 +1,22 @@
+<%= form_with(model: category, local: true, class: 'needs-validation') do |form| %>
+  <div class="mb-3">
+    <%= form.label :name, t('categories.form.name'), class: 'form-label' %>
+    <%= form.text_field :name, class: 'form-control', required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, t('categories.form.description'), class: 'form-label' %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :parent_id, t('categories.form.parent_category'), class: 'form-label' %>
+    <%= form.collection_select :parent_id, Category.all, :id, :name,
+          { include_blank: t('categories.form.none') }, class: 'form-select' %>
+  </div>
+
+  <div>
+    <%= form.submit t('categories.form.submit'), class: 'btn btn-success' %>
+    <%= link_to t('categories.form.back'), categories_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>

@@ -1,26 +1,19 @@
-<h2 class="mb-4">Danh sách khóa học</h2>
+<h1><%= t('courses.index.title') %></h1>
 
 <div class="row">
   <% @courses.each do |course| %>
-    <div class="col-md-4 mb-4">
-      <div class="card h-100 shadow-sm">
-        <% if course.thumbnail_url.present? %>
-          <img src="<%= course.thumbnail_url %>" class="card-img-top" alt="<%= course.title %>">
-        <% else %>
-          <img src="https://via.placeholder.com/400x200?text=No+Image" class="card-img-top" alt="no image">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+      <div class="card h-100 course-card shadow-sm">
+        <%= link_to course_path(course), class: "stretched-link text-decoration-none text-dark" do %>
+          <img src="<%= course.thumbnail_url.presence || 'https://via.placeholder.com/800x400' %>"
+               class="card-img-top course-img"
+               alt="<%= course.title %>">
         <% end %>
 
         <div class="card-body">
           <h5 class="card-title"><%= course.title %></h5>
-          <p class="card-text text-truncate"><%= course.description %></p>
-          <p><strong>Danh mục:</strong> <%= course.category&.name || "Chưa phân loại" %></p>
-
-          <%= link_to "Xem chi tiết", course_path(course), class: "btn btn-outline-primary btn-sm" %>
-
-          <% if current_user.admin? %>
-            <%= link_to "Sửa", edit_course_path(course), class: "btn btn-warning btn-sm" %>
-            <%= link_to "Xóa", course_path(course), method: :delete, data: { confirm: "Xóa khóa học này?" }, class: "btn btn-danger btn-sm" %>
-          <% end %>
+          <p class="card-text text-muted"><%= course.category&.name || t('courses.index.uncategorized') %></p>
+          <p class="card-text"><%= truncate(course.description.to_s, length: 120) %></p>
         </div>
       </div>
     </div>

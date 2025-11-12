@@ -1,0 +1,149 @@
+vi:
+  admin:
+    authorization:
+      denied: "Bạn không có quyền truy cập khu vực này!"
+    categories:
+      create:
+        success: "Tạo danh mục thành công."
+      update:
+        success: "Cập nhật danh mục thành công."
+      destroy:
+        success: "Xóa danh mục thành công."
+    course_modules:
+      create:
+        success: "Chương mới đã được thêm thành công."
+      update:
+        success: "Chương học đã được cập nhật thành công."
+      destroy:
+        success: "Chương học đã được xóa thành công."
+    courses:
+      create:
+        success: "Khóa học đã được tạo thành công."
+      update:
+        success: "Khóa học đã được cập nhật thành công."
+      destroy:
+        success: "Khóa học đã được xóa thành công."
+    lessons:
+      create:
+        success: "Bài học mới đã được thêm thành công."
+      update:
+        success: "Bài học đã được cập nhật thành công."
+      destroy:
+        success: "Bài học đã được xóa thành công."
+    course_modules:
+      form:
+        errors_title: "%{count} lỗi đã xảy ra:"
+        title: "Tên chương"
+        description: "Mô tả (Không bắt buộc)"
+        order_index: "Thứ tự (ví dụ: 1)"
+        submit: "Lưu chương"
+      new:
+        title: "Thêm chương mới"
+        for_course: "Cho khóa học: %{course_title}"
+        back_to_course: "Quay lại khóa học"
+      destroy:
+        success: "Chương đã được xóa thành công."
+        failure: "Không thể xóa chương này."
+  categories:
+    form:
+      name: "Tên danh mục"
+      description: "Mô tả"
+      parent_category: "Danh mục cha"
+      none: "Không có"
+      submit: "Lưu"
+      back: "Quay lại"
+    edit:
+      title: "Chỉnh sửa danh mục"
+    index:
+        title: "Quản lý Danh mục"
+        new_category: "Tạo Danh mục mới"
+        name: "Tên"
+        description: "Mô tả"
+        parent: "Danh mục cha"
+        actions: "Hành động"
+        no_parent: "—"
+        edit: "Sửa"
+        delete: "Xóa"
+        confirm_delete: "Bạn có chắc muốn xóa danh mục này?"
+    new:
+        title: "Tạo Danh mục mới"
+    show:
+        admin_view: "Chế độ Quản trị"
+        description: "Mô tả"
+        parent: "Danh mục cha"
+        no_parent: "—"
+        edit: "Chỉnh sửa"
+        back_to_list: "Quay lại danh sách"
+  courses:
+    form:
+      title: "Tiêu đề"
+      description: "Mô tả"
+      thumbnail_url: "Ảnh đại diện (URL)"
+      category: "Danh mục"
+      none: "Không có"
+      created_by: "Người tạo (ID người dùng)"
+      submit: "Lưu"
+      back: "Quay lại"
+    edit:
+      title: "Chỉnh sửa khóa học"
+    index:
+        title: "Quản lý Khóa học"
+        new_course: "Tạo khóa học mới"
+        uncategorized: "Chưa phân loại"
+        add_module: "Thêm chương"
+        edit: "Sửa"
+        delete: "Xóa"
+        confirm_delete: "Bạn có chắc muốn xóa khóa học này?"
+    new:
+        title: "Thêm khóa học mới"
+    show:
+        uncategorized: "Chưa phân loại"
+        add_module: "Thêm chương mới"
+        edit_course: "Chỉnh sửa khóa học"
+        delete_course: "Xóa khóa học"
+        confirm_delete_course: "Bạn có chắc muốn xóa TOÀN BỘ khóa học này không?"
+        back_to_list: "Quay lại danh sách (Admin)"
+        content_admin: "Nội dung khóa học (Admin)"
+        no_content: "Khóa học này chưa có nội dung. Hãy bấm 'Thêm chương mới'."
+        module_admin: "Quản trị chương:"
+        edit_module: "Sửa chương"
+        delete_module: "Xóa chương"
+        confirm_delete_module: "Xóa chương '%{title}' sẽ xóa TẤT CẢ bài học bên trong. Bạn có chắc?"
+        add_lesson: "+ Thêm bài học vào chương này"
+        no_lessons: "Chưa có bài học nào."
+        view: "Xem"
+        edit: "Sửa"
+        delete: "Xóa"
+        confirm_delete_lesson: "Bạn có chắc muốn xóa bài '%{title}' không?"
+    form:
+        errors_count: "%{count} lỗi đã xảy ra:"
+        title: "Tên bài học"
+        description: "Mô tả bài học"
+        video_url: "Link Video (YouTube, Vimeo...)"
+        attachment_url: "Link tài liệu đính kèm (PDF, ZIP...)"
+        order_index: "Thứ tự (ví dụ: 1)"
+        submit: "Lưu bài học"
+  lessons:
+      new:
+        title: "Thêm bài học mới"
+        for_module: "Vào chương: %{module_title}"
+        for_course: "(Của khóa học: %{course_title})"
+        back_to_course: "Quay lại khóa học"
+  categories:
+    index:
+      title: "Duyệt theo Danh mục"
+      no_categories: "Chưa có danh mục nào."
+    show:
+      courses_in_category: "Các khóa học trong danh mục này"
+      no_courses: "Chưa có khóa học nào trong danh mục này."
+      uncategorized: "Chưa phân loại"
+      back_to_categories: "Quay lại tất cả danh mục"
+  courses:
+    index:
+      title: "Danh sách khóa học"
+      uncategorized: "Chưa phân loại"
+    show:
+      uncategorized: "Chưa phân loại"
+      back_to_list: "Quay lại danh sách"
+      content_title: "Nội dung khóa học"
+      no_content: "Nội dung khóa học đang được cập nhật."

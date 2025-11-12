@@ -1,33 +1,147 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   "true": "foo"
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
   hello: "Hello world"
+  admin:
+    authorization:
+      denied: "You are not authorized to access this area!"
+    categories:
+      create:
+        success: "Category created successfully."
+      update:
+        success: "Category updated successfully."
+      destroy:
+        success: "Category deleted successfully."
+    course_modules:
+      create:
+        success: "New module was successfully added."
+      update:
+        success: "Module was successfully updated."
+      destroy:
+        success: "Module was successfully deleted."
+    courses:
+      create:
+        success: "Course created successfully!"
+      update:
+        success: "Course updated successfully!"
+      destroy:
+        success: "Course deleted successfully!"
+    lessons:
+      create:
+        success: "New lesson has been added successfully."
+      update:
+        success: "Lesson has been updated successfully."
+      destroy:
+        success: "Lesson has been deleted successfully."
+    course_modules:
+      form:
+        errors_title: "%{count} error(s) occurred:"
+        title: "Module Title"
+        description: "Description (optional)"
+        order_index: "Order (e.g., 1)"
+        submit: "Save Module"
+      new:
+        title: "Add New Module"
+        for_course: "For course: %{course_title}"
+        back_to_course: "Back to Course"
+  categories:
+    form:
+      name: "Name"
+      description: "Description"
+      parent_category: "Parent Category"
+      none: "None"
+      submit: "Save"
+      back: "Back"
+    edit:
+      title: "Edit Category"
+    index:
+        title: "Category Management"
+        new_category: "Create New Category"
+        name: "Name"
+        description: "Description"
+        parent: "Parent"
+        actions: "Actions"
+        no_parent: "—"
+        edit: "Edit"
+        delete: "Delete"
+        confirm_delete: "Are you sure you want to delete this category?"
+    new:
+        title: "New Category"
+    show:
+        admin_view: "Admin View"
+        description: "Description"
+        parent: "Parent"
+        no_parent: "—"
+        edit: "Edit"
+        back_to_list: "Back to List"
+  courses:
+    form:
+      title: "Title"
+      description: "Description"
+      thumbnail_url: "Thumbnail URL"
+      category: "Category"
+      none: "None"
+      created_by: "Created By (User ID)"
+      submit: "Save"
+      back: "Back"
+    edit:
+      title: "Edit Course"
+    index:
+        title: "Course Management"
+        new_course: "Create New Course"
+        uncategorized: "Uncategorized"
+        add_module: "Add Module"
+        edit: "Edit"
+        delete: "Delete"
+        confirm_delete: "Are you sure you want to delete this course?"
+    new:
+        title: "New Course"
+    show:
+        uncategorized: "Uncategorized"
+        add_module: "Add New Module"
+        edit_course: "Edit Course"
+        delete_course: "Delete Course"
+        confirm_delete_course: "Are you sure you want to delete this entire course?"
+        back_to_list: "Back to List (Admin)"
+        content_admin: "Course Content (Admin)"
+        no_content: "This course has no content yet. Click 'Add New Module'."
+        module_admin: "Manage Module:"
+        edit_module: "Edit Module"
+        delete_module: "Delete Module"
+        confirm_delete_module: "Deleting the module '%{title}' will remove all its lessons. Are you sure?"
+        add_lesson: "Add Lesson to This Module"
+        no_lessons: "No lessons yet."
+        view: "View"
+        edit: "Edit"
+        delete: "Delete"
+        confirm_delete_lesson: "Are you sure you want to delete the lesson '%{title}'?"
+    form:
+        errors_count: "%{count} errors prohibited this lesson from being saved:"
+        title: "Lesson Title"
+        description: "Lesson Description"
+        video_url: "Video URL (YouTube, Vimeo...)"
+        attachment_url: "Attachment URL (PDF, ZIP...)"
+        order_index: "Order (e.g., 1)"
+        submit: "Save Lesson"
+  lessons:
+      new:
+        title: "Add New Lesson"
+        for_module: "In Module: %{module_title}"
+        for_course: "(Of Course: %{course_title})"
+        back_to_course: "Back to Course"
+  categories:
+    index:
+      title: "Browse by Category"
+      no_categories: "No categories available."
+    show:
+      courses_in_category: "Courses in this category"
+      no_courses: "No courses available in this category."
+      uncategorized: "Uncategorized"
+      back_to_categories: "Back to All Categories"
+  courses:
+    index:
+      title: "Course List"
+      uncategorized: "Uncategorized"
+    show:
+      uncategorized: "Uncategorized"
+      back_to_list: "Back to Course List"
+      content_title: "Course Content"
+      no_content: "Course content is being updated."

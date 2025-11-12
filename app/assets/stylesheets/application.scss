@@ -85,4 +85,11 @@ form {
       margin-right: 5px;
     }
   }
+
+}
+
+.course-card .course-img {
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
 }
