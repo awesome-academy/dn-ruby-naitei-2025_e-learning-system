@@ -1,0 +1,36 @@
+<h1><%= t('admin.courses.index.title') %></h1>
+
+<div class="mb-3">
+  <%= link_to t('admin.courses.index.new_course'), new_admin_course_path, class: "btn btn-success" %>
+</div>
+
+<div class="row">
+  <% @courses.each do |course| %>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+      <div class="card h-100 course-card shadow-sm">
+        <%= link_to admin_course_path(course), class: "stretched-link text-decoration-none text-dark" do %>
+          <img src="<%= course.thumbnail_url.presence || 'https://via.placeholder.com/800x400' %>"
+               class="card-img-top course-img"
+               alt="<%= course.title %>">
+        <% end %>
+
+        <div class="card-body d-flex flex-column">
+          <div class="flex-grow-1">
+            <h5 class="card-title"><%= course.title %></h5>
+            <p class="card-text text-muted"><%= course.category&.name || t('admin.courses.index.uncategorized') %></p>
+            <p class="card-text"><%= truncate(course.description.to_s, length: 120) %></p>
+          </div>
+
+          <div class="mt-2" style="position: relative; z-index: 10;">
+            <%= link_to t('admin.courses.index.add_module'), new_admin_course_course_module_path(course), class: "btn btn-primary btn-sm me-2" %>
+            <%= link_to t('admin.courses.index.edit'), edit_admin_course_path(course), class: "btn btn-warning btn-sm me-2" %>
+            <%= link_to t('admin.courses.index.delete'),
+                        admin_course_path(course),
+                        data: { turbo_method: :delete, turbo_confirm: t('admin.courses.index.confirm_delete') },
+                        class: "btn btn-danger btn-sm" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

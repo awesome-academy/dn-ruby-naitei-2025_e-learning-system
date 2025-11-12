@@ -1,0 +1,8 @@
+<h1><%= t('admin.lessons.new.title') %></h1>
+<h2><%= t('admin.lessons.new.for_module', module_title: @course_module.title) %></h2>
+<h3><%= t('admin.lessons.new.for_course', course_title: @course_module.course.title) %></h3>
+
+<%= render "form", lesson: @lesson %>
+
+<br>
+<%= link_to t('admin.lessons.new.back_to_course'), course_path(@course_module.course) %>

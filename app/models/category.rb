@@ -1,7 +1,7 @@
 class Category < ApplicationRecord
   # Self-referential association (macro)
-  belongs_to :parent, class_name: "Category", optional: true
-  has_many :subcategories, class_name: "Category", foreign_key: "parent_id",
+  belongs_to :parent, class_name: Category.name, optional: true
+  has_many :subcategories, class_name: Category.name, foreign_key: "parent_id",
 dependent: :nullify
 
   has_many :courses, dependent: :nullify

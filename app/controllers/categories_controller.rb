@@ -1,47 +1,23 @@
+# app/controllers/categories_controller.rb
 class CategoriesController < ApplicationController
-  before_action :set_category, only: %i(show edit update destroy)
+  before_action :set_category, only: %i(show)
 
   def index
     @categories = Category.all
   end
 
-  def show; end
-
-  def new
-    @category = Category.new
-  end
-
-  def create
-    @category = Category.new(category_params)
-    if @category.save
-      redirect_to @category, notice: "Category created successfully."
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-  def edit; end
-
-  def update
-    if @category.update(category_params)
-      redirect_to @category, notice: "Category updated successfully."
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @category.destroy
-    redirect_to categories_path, notice: "Category deleted."
+  # GET /categories/:id
+  def show
+    @courses = @category.courses.includes(:category)
   end
 
   private
 
   def set_category
-    @category = Category.find(params[:id])
-  end
+    @category = Category.find_by(id: params[:id])
 
-  def category_params
-    params.require(:category).permit(:name, :description, :parent_id)
+    return unless @category.nil?
+
+    redirect_to categories_path
   end
 end

@@ -1,8 +1,18 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-  resources :categories
-  resources :courses
+  root "courses#index"
+  resources :courses, only: [:index, :show]
+  resources :categories, only: [:index, :show]
+  resources :lessons, only: [:show]
+  namespace :admin do
+    # root to: "dashboard#index"
+    resources :categories
+    resources :courses do
+      resources :course_modules, shallow: true do
+        resources :lessons, shallow: true
+      end
+    end
+
+    # 'resources :users'
+  end
 end

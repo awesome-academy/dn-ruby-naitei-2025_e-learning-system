@@ -1,0 +1,32 @@
+<%= form_with(model: course, local: true) do |form| %>
+  <div class="mb-3">
+    <%= form.label :title, t('courses.form.title'), class: 'form-label' %>
+    <%= form.text_field :title, class: 'form-control', required: true %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :description, t('courses.form.description'), class: 'form-label' %>
+    <%= form.text_area :description, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :thumbnail_url, t('courses.form.thumbnail_url'), class: 'form-label' %>
+    <%= form.text_field :thumbnail_url, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :category_id, t('courses.form.category'), class: 'form-label' %>
+    <%= form.collection_select :category_id, Category.all, :id, :name,
+          { include_blank: t('courses.form.none') }, class: 'form-select' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :created_by, t('courses.form.created_by'), class: 'form-label' %>
+    <%= form.number_field :created_by, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= form.submit t('courses.form.submit'), class: 'btn btn-success' %>
+    <%= link_to t('courses.form.back'), courses_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>
