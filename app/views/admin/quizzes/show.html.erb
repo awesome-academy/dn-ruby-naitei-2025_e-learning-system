@@ -1,0 +1,76 @@
+<h1>Quản lý câu hỏi cho Quiz:</h1>
+<h2><%= @quiz.title %></h2>
+<p>
+  <strong>Thuộc Khóa học:</strong> <%= @quiz.course.title %><br>
+  <strong>Thuộc Bài học:</strong> <%= @quiz.lesson.title %>
+</p>
+
+<hr>
+
+<div class="row">
+  <div class="col-md-7">
+    <h3>Câu hỏi trong bài kiểm tra (<%= @quiz_questions.count %>)</h3>
+
+    <table class="table table-striped">
+      <tbody>
+        <% @quiz_questions.each do |quiz_question| %>
+          <tr>
+            <td>
+              <%= truncate(quiz_question.question.question_text, length: 100) %>
+              <small class="text-muted d-block">
+                (Loại: <%= quiz_question.question.question_type %>,
+                Độ khó: <%= quiz_question.question.difficulty %>)
+              </small>
+            </td>
+            <td style="width: 100px;" class="text-end">
+              <%# Dùng button_to để gửi DELETE %>
+              <%= button_to "Xóa", admin_quiz_question_path(quiz_question),
+                    method: :delete,
+                    data: { turbo_confirm: "Xóa câu hỏi này khỏi bài kiểm tra?" },
+                    class: "btn btn-sm btn-outline-danger" %>
+            </td>
+          </tr>
+        <% end %>
+        <% if @quiz_questions.empty? %>
+          <tr><td colspan="2" class="text-muted">Chưa có câu hỏi nào. Hãy thêm từ bên phải.</td></tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-5">
+    <div class="card bg-light">
+      <div class="card-body">
+        <h5 class="card-title">Thêm câu hỏi từ Ngân hàng</h5>
+        <p class="card-text">Chọn câu hỏi từ khóa học <strong><%= @quiz.course.title %></strong> để thêm vào:</p>
+
+        <%# Form này gửi POST đến Admin::QuizQuestionsController#create %>
+        <%= form_with(url: admin_quiz_quiz_questions_path(@quiz), method: :post) do |f| %>
+
+          <div class="mb-3">
+            <%= f.label :question_id, "Câu hỏi có sẵn", class: "form-label" %>
+
+            <%# Dropdown này lấy từ @available_questions trong controller %>
+            <%= f.collection_select :question_id, @available_questions, :id, :question_text,
+                  { prompt: "--- Chọn câu hỏi để thêm ---" },
+                  { class: "form-select", required: true } %>
+          </div>
+
+          <%= f.submit "Thêm vào Quiz", class: "btn btn-primary" %>
+        <% end %>
+
+        <hr>
+        <p class="text-muted small">
+          Không thấy câu hỏi bạn cần?
+          <%= link_to "Tạo câu hỏi mới", new_admin_question_path(course_id: @quiz.course_id), target: "_blank" %>
+          (Sẽ tự động chọn khóa học này).
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4">
+  <%= link_to "Chỉnh sửa cài đặt Quiz", edit_admin_quiz_path(@quiz), class: "btn btn-secondary" %>
+  <%= link_to "Quay lại danh sách Quizzes", admin_quizzes_path, class: "btn btn-outline-secondary" %>
+</div>
