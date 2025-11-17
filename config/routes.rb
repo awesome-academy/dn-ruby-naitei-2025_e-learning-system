@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  get '/signup', to: 'registrations#new'
+  post '/signup', to: 'registrations#create'
+  resources :email_confirmations, only: [:edit]
   resources :courses, only: [:index, :show]
   resources :categories, only: [:index, :show]
   resources :lessons, only: [:show]

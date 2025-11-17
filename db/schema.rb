@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_11_16_072537) do
+ActiveRecord::Schema[7.0].define(version: 2025_11_17_041648) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -179,6 +179,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_16_072537) do
     t.string "avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "confirmed_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
