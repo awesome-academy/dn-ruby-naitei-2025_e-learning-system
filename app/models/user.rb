@@ -7,8 +7,26 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_secure_password
 
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  VALID_PASSWORD_REGEX = /\A
+    (?=.*[a-z])
+    (?=.*[A-Z])
+    (?=.*\d)
+    (?=.*[^A-Za-z0-9])
+    .{8,}
+  \z/x
+
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
+
+  validates :email,
+            presence: true,
+            uniqueness: true,
+            format: {with: VALID_EMAIL_REGEX}
+
+  validates :password,
+            presence: true,
+            format: {with: VALID_PASSWORD_REGEX},
+            if: ->{new_record? || !password.nil?}
   has_many :enrollments, dependent: :destroy
   has_many :enrolled_courses, through: :enrollments, source: :course
 
