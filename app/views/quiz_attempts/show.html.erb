@@ -1,0 +1,30 @@
+<% quiz = @quiz_attempt.quiz %>
+
+<div class="container mt-4">
+  <div class="text-center">
+    <h1><%= quiz.title %></h1>
+    <p class="lead">Trạng thái: <strong><%= @quiz_attempt.status.humanize %></strong></p>
+  </div>
+
+  <hr>
+
+  <div class="card my-4">
+    <div class="card-body">
+
+      <%# Kiểm tra xem bài thi đã xong chưa (biến từ controller) %>
+      <% if @quiz_is_finished %>
+
+        <%= render 'results', quiz_attempt: @quiz_attempt %>
+
+      <% else %>
+
+        <%= render 'question_form',
+              quiz_attempt: @quiz_attempt,
+              question: @next_question,
+              quiz_answer: @quiz_answer %>
+
+      <% end %>
+
+    </div>
+  </div>
+</div>
