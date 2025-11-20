@@ -1,4 +1,4 @@
-<%= form_with(model: course, local: true) do |form| %>
+<%= form_with(model: [:admin, @course]) do |form| %>
   <div class="mb-3">
     <%= form.label :title, t('courses.form.title'), class: 'form-label' %>
     <%= form.text_field :title, class: 'form-control', required: true %>
@@ -26,7 +26,7 @@
   </div>
 
   <div>
-    <%= form.submit t('courses.form.submit'), class: 'btn btn-success' %>
+    <%= form.submit t('admin.courses.form.submit'), class: 'btn btn-success' %>
     <%= link_to t('courses.form.back'), courses_path, class: 'btn btn-secondary' %>
   </div>
 <% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_11_12_065503) do
+ActiveRecord::Schema[7.0].define(version: 2025_11_16_072537) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -150,6 +150,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_12_065503) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_quiz_questions_on_question_id"
+    t.index ["quiz_id", "question_id"], name: "index_quiz_questions_on_quiz_id_and_question_id", unique: true
     t.index ["quiz_id"], name: "index_quiz_questions_on_quiz_id"
   end
 

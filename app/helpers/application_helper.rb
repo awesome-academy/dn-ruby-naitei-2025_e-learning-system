@@ -9,4 +9,8 @@ module ApplicationHelper
       "info"
     end
   end
+
+  def render_not_found path, message
+    redirect_to path, alert: message
+  end
 end

@@ -1,0 +1,76 @@
+<%= form_with(model: [:admin, @question]) do |f| %>
+  <% if @question.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(@question.errors.count, "lỗi") %> đã xảy ra:</h2>
+      <ul>
+        <% @question.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="mb-3">
+        <%= f.label :question_text, "Nội dung câu hỏi", class: "form-label" %>
+        <%= f.text_area :question_text, rows: 4, class: "form-control", required: true %>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :question_type, "Loại câu hỏi", class: "form-label" %>
+          <%= f.select :question_type, Question.question_types.keys.map { |k| [k.humanize, k] }, {}, class: "form-select" %>
+        </div>
+        <div class="col-md-6 mb-3">
+          <%= f.label :difficulty, "Độ khó", class: "form-label" %>
+          <%= f.select :difficulty, Question.difficulties.keys.map { |k| [k.humanize, k] }, {}, class: "form-select" %>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <%= f.label :course_id, "Gắn vào Khóa học (Bắt buộc)", class: "form-label" %>
+
+          <%# Dropdown này lấy dữ liệu từ @courses trong controller %>
+          <%= f.collection_select :course_id, @courses, :id, :title,
+                { prompt: "--- Chọn một khóa học ---" },
+                { class: "form-select", required: true } %>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <%= f.label :lesson_id, "Gắn vào Bài học (Tùy chọn)", class: "form-label" %>
+
+          <%# Tạm thời dùng number_field - Sẽ nâng cấp sau %>
+          <%= f.number_field :lesson_id, class: "form-control", placeholder: "Nhập ID bài học (nếu có)" %>
+          <small class="form-text text-muted">Bạn có thể để trống và gắn vào sau.</small>
+        </div>
+      </div>
+      <hr>
+
+      <h4>Các lựa chọn trả lời</h4>
+      <p class="text-muted">Đánh dấu vào ô "Đúng" cho (các) đáp án chính xác.</p>
+
+      <div id="question_options">
+        <%= f.fields_for :question_options do |option_form| %>
+          <div class="input-group mb-3">
+            <span class="input-group-text">
+              <%= option_form.check_box :is_correct, class: "form-check-input" %>
+              <%= option_form.label :is_correct, "Đúng", class: "ms-2" %>
+            </span>
+
+            <%= option_form.text_field :option_text, class: "form-control", placeholder: "Nội dung lựa chọn..." %>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <%= f.submit "Lưu câu hỏi", class: "btn btn-primary" %>
+    <%= link_to "Hủy", admin_questions_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>
