@@ -1,8 +1,7 @@
-# app/controllers/lessons_controller.rb
 class LessonsController < ApplicationController
-  before_action :set_lesson, only: %i(show)
+  # before_action :authenticate_user!
 
-  before_action :authenticate_user!
+  before_action :set_lesson, only: %i(show)
 
   # GET /lessons/1
   def show
@@ -16,6 +15,6 @@ class LessonsController < ApplicationController
 
     return unless @lesson.nil?
 
-    redirect_to admin_courses_path
+    redirect_to courses_path, alert: t("lessons.not_found")
   end
 end

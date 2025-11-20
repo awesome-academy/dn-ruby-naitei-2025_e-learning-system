@@ -1,0 +1,29 @@
+<div class="text-center">
+  <h2>Hoàn thành!</h2>
+
+  <h3 class="my-4">
+    Kết quả:
+    <span class="fw-bold
+                 <%= quiz_attempt.is_passed? ? 'text-success' : 'text-danger' %>">
+      <%= quiz_attempt.is_passed? ? "Đã đậu" : "Chưa đậu" %>
+    </span>
+  </h3>
+
+  <p classs="fs-4">
+    Điểm của bạn: <strong><%= number_to_percentage(quiz_attempt.score, precision: 2) %></strong>
+  </p>
+  <p>
+    (Cần đạt: <%= number_to_percentage(quiz_attempt.quiz.pass_score, precision: 0) %>)
+  </p>
+
+  <p class="text-muted">
+    Bài thi kết thúc lúc: <%= quiz_attempt.finished_at.strftime("%H:%M:%S %d/%m/%Y") %>
+  </p>
+
+  <hr>
+
+  <%# Quay lại bài học %>
+  <%= link_to "Quay lại Bài học",
+        lesson_path(quiz_attempt.quiz.lesson),
+        class: "btn btn-secondary" %>
+</div>

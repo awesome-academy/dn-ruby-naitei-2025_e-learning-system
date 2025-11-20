@@ -197,3 +197,11 @@ en:
     quiz_question:
       errors:
         already_in_quiz: "has already been added to this quiz"
+  quiz_answers:
+    create:
+      fail: "Unable to submit the answer."
+  quiz_attempts:
+    create:
+      fail: "Unable to start the quiz."
+  lessons:
+    not_found: "Lesson not found."

@@ -1,4 +1,3 @@
-# app/controllers/categories_controller.rb
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i(show)
 

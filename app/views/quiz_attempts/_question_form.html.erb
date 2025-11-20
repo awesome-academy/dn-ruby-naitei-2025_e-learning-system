@@ -1,0 +1,31 @@
+<h3 class="mb-4">Câu hỏi: <%= question.question_text %></h3>
+
+<%# Form này gửi POST đến QuizAnswersController#create %>
+<%= form_with(model: quiz_answer, url: quiz_attempt_quiz_answers_path(quiz_attempt)) do |f| %>
+
+  <%# Gửi ID của câu hỏi này (ẩn) %>
+  <%= f.hidden_field :question_id, value: question.id %>
+
+  <div class="list-group">
+    <%# (Chúng ta sẽ dùng JS để xáo trộn câu trả lời sau) %>
+    <% question.question_options.each do |option| %>
+
+      <%# Hiển thị Radio Button (cho câu 'single') %>
+      <% if question.single? %>
+        <label class="list-group-item list-group-item-action">
+          <%= f.radio_button :question_option_id, option.id, required: true, class: "form-check-input me-2" %>
+          <%= option.option_text %>
+        </label>
+      <% end %>
+
+      <%# (Hiển thị Checkbox cho câu 'multiple' - Nâng cao) %>
+      <%# if question.multiple? ... %>
+
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <%= f.submit "Trả lời", class: "btn btn-primary" %>
+  </div>
+
+<% end %>
