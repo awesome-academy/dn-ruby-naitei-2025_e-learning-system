@@ -205,3 +205,8 @@ en:
       fail: "Unable to start the quiz."
   lessons:
     not_found: "Lesson not found."
+  sessions:
+    login_success: "Đăng nhập thành công! Xin chào %{name}."
+    login_failed: "Email hoặc mật khẩu không đúng."
+    logout_success: "Đã đăng xuất."
+    require_login: "Vui lòng đăng nhập để tiếp tục."
