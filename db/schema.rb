@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_11_16_072537) do
+ActiveRecord::Schema[7.0].define(version: 2025_11_18_083341) do
   create_table "categories", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_16_072537) do
     t.bigint "created_by"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "price", precision: 10, scale: 2, default: "0.0"
     t.index ["category_id"], name: "index_courses_on_category_id"
     t.index ["created_by"], name: "fk_rails_8984e96f9b"
   end
@@ -47,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_16_072537) do
     t.bigint "user_id", null: false
     t.bigint "course_id", null: false
     t.timestamp "enrolled_at", default: -> { "CURRENT_TIMESTAMP" }
-    t.boolean "status", default: true
+    t.string "status", default: "pending"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_enrollments_on_course_id"
@@ -91,6 +92,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_16_072537) do
     t.index ["course_id"], name: "index_progress_trackings_on_course_id"
     t.index ["lesson_id"], name: "index_progress_trackings_on_lesson_id"
     t.index ["quiz_id"], name: "index_progress_trackings_on_quiz_id"
+    t.index ["user_id", "lesson_id"], name: "index_progress_trackings_on_user_id_and_lesson_id", unique: true
+    t.index ["user_id", "quiz_id"], name: "index_progress_trackings_on_user_id_and_quiz_id", unique: true
     t.index ["user_id"], name: "index_progress_trackings_on_user_id"
   end
 
@@ -179,6 +182,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_11_16_072537) do
     t.string "avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "confirmed_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

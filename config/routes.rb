@@ -1,15 +1,26 @@
 Rails.application.routes.draw do
   devise_for :users
+  resource :profile, only: [:edit, :update]
 
+  get "password/edit", to: "passwords#edit"
+  patch "password", to: "passwords#update"
+
+  # === KẾT THÚC ===
   root "courses#index"
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  get '/signup', to: 'registrations#new'
+  post '/signup', to: 'registrations#create'
+  resources :email_confirmations, only: [:edit]
   resources :courses, only: [:index, :show]
   resources :categories, only: [:index, :show]
   resources :lessons, only: [:show]
 
-
+  resources :courses, only: [:index, :show] do
+  # Nest enrollment vào course
+  resources :enrollments, only: [:create]
+  end
   #    POST /quizzes/:quiz_id/quiz_attempts
   resources :quizzes, only: [] do
     resources :quiz_attempts, only: [:create], shallow: false
@@ -18,6 +29,10 @@ Rails.application.routes.draw do
   #    POST /quiz_attempts/:quiz_attempt_id/quiz_answers
   resources :quiz_attempts, only: [:show] do
     resources :quiz_answers, only: [:create], shallow: false
+  end
+
+  resources :lessons, only: [:show] do
+    post :complete, to: 'progress_trackings#mark_lesson_complete'
   end
   # ==================================================
   # ADMIN Routes
@@ -42,6 +57,18 @@ Rails.application.routes.draw do
 
     # (DELETE /admin/quiz_questions/:id)
     resources :quiz_questions, only: [:destroy]
+    resources :enrollments, only: [:index] do
+      member do
+        patch :approve
+        patch :reject
+      end
+    end
+    resources :enrollments, only: [:index] do
+      member do
+        patch :approve
+        patch :reject
+      end
+    end
   end
 
 end
