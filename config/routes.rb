@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
   devise_for :users
+  # === THÊM CÁC DÒNG NÀY (CHO USER) ===
 
+  # Tạo routes: /profile (GET), /profile (PATCH/PUT), /profile/edit (GET)
+  # trỏ đến ProfilesController
+  resource :profile, only: [:edit, :update]
+
+  # Tạo routes: /password/edit (GET), /password (PATCH/PUT)
+  # trỏ đến PasswordsController
+  get "password/edit", to: "passwords#edit"
+  patch "password", to: "passwords#update"
+
+  # === KẾT THÚC ===
   root "courses#index"
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
@@ -12,7 +23,10 @@ Rails.application.routes.draw do
   resources :categories, only: [:index, :show]
   resources :lessons, only: [:show]
 
-
+  resources :courses, only: [:index, :show] do
+  # Nest enrollment vào course
+  resources :enrollments, only: [:create]
+  end
   #    POST /quizzes/:quiz_id/quiz_attempts
   resources :quizzes, only: [] do
     resources :quiz_attempts, only: [:create], shallow: false
@@ -45,6 +59,18 @@ Rails.application.routes.draw do
 
     # (DELETE /admin/quiz_questions/:id)
     resources :quiz_questions, only: [:destroy]
+    resources :enrollments, only: [:index] do
+      member do
+        patch :approve # Tạo route: /admin/enrollments/:id/approve
+        patch :reject
+      end
+    end
+    resources :enrollments, only: [:index] do
+      member do
+        patch :approve # Route để duyệt: /admin/enrollments/:id/approve
+        patch :reject  # Route để từ chối: /admin/enrollments/:id/reject
+      end
+    end
   end
 
 end
