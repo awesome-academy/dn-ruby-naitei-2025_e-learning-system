@@ -12,14 +12,14 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(email: params[:email])
 
-    if user&.authenticate(params[:password])
+    if user.confirmed_at.present?
       session[:user_id] = user.id
+      flash[:notice] = t("sessions.login_success")
 
-      flash[:notice] = t("sessions.login_success", name: user.name)
-
-      redirect_based_on_role(user)
+      redirect_back_or root_path
     else
-      flash.now[:alert] = t("sessions.login_failed")
+      flash[:alert] =
+        t("sessions.account_not_activated")
       render :new, status: :unprocessable_entity
     end
   end

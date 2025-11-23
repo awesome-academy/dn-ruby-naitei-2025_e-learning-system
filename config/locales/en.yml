@@ -210,3 +210,10 @@ en:
     login_failed: "Email hoặc mật khẩu không đúng."
     logout_success: "Đã đăng xuất."
     require_login: "Vui lòng đăng nhập để tiếp tục."
+    login_success: "Đăng nhập thành công!"
+    account_not_activated: "Tài khoản chưa được kích hoạt. Vui lòng kiểm tra email."
+  auth:
+    please_login: "Vui lòng đăng nhập để tiếp tục."
+  email_confirmation:
+    success: "Tài khoản đã được kích hoạt thành công!"
+    invalid_link: "Liên kết xác nhận không hợp lệ hoặc đã hết hạn."
